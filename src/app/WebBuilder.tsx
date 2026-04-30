@@ -36,12 +36,14 @@ const WebBuilder = () => {
         return '';
     }, [activeDrawer]);
 
-    const drawerAccentColor = useMemo(() => {
-        if (activeDrawer === 'layout') return '#2563eb'; // blue
-        if (activeDrawer === 'grid') return '#7c3aed';   // violet
-        if (activeDrawer === 'section') return '#fc9d3c'; // green
+    const accentColorFor = (key: DrawerKey) => {
+        if (key === 'layout') return '#2563eb'; // blue
+        if (key === 'grid') return '#7c3aed'; // violet
+        if (key === 'section') return '#fc9d3c'; // orange
         return 'transparent';
-    }, [activeDrawer]);
+    };
+
+    const drawerAccentColor = useMemo(() => accentColorFor(activeDrawer), [activeDrawer]);
 
     const drawerContent = useMemo(() => {
         if (activeDrawer === 'layout') return <LayoutDrawerContent/>;
@@ -67,6 +69,7 @@ const WebBuilder = () => {
                             data-tooltip="레이아웃"
                             className={activeDrawer === 'layout' ? 'is-active' : undefined}
                             onClick={() => toggleDrawer('layout')}
+                            style={{['--wb-accent' as never]: accentColorFor('layout')}}
                         >
                             <Layout style={{width:'24px'}}/>
                         </li>
@@ -74,6 +77,7 @@ const WebBuilder = () => {
                             data-tooltip="그리드"
                             className={activeDrawer === 'grid' ? 'is-active' : undefined}
                             onClick={() => toggleDrawer('grid')}
+                            style={{['--wb-accent' as never]: accentColorFor('grid')}}
                         >
                             <Grid style={{width:'24px'}}/>
                         </li>
@@ -81,6 +85,7 @@ const WebBuilder = () => {
                             data-tooltip="섹션"
                             className={activeDrawer === 'section' ? 'is-active' : undefined}
                             onClick={() => toggleDrawer('section')}
+                            style={{['--wb-accent' as never]: accentColorFor('section')}}
                         >
                             <Section style={{width:'24px'}}/>
                         </li>

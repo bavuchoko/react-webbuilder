@@ -136,25 +136,27 @@ li {
   position: relative;
   width: 40px;
   height: 40px;
-  border-radius: 10px;
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   color: #0f172a;
 }
 .wb-menu li:hover{
-  background: rgba(15, 23, 42, 0.04);
+  background: color-mix(in srgb, var(--wb-accent, #0f172a) 10%, transparent);
+  color: color-mix(in srgb, var(--wb-accent, #2563eb) 82%, #000);
 }
 .wb-menu li.is-active{
-  background: rgba(37, 99, 235, 0.10);
-  outline: 1px solid rgba(37, 99, 235, 0.22);
+  background: color-mix(in srgb, var(--wb-accent, #2563eb) 14%, transparent);
+  /*outline: 1px solid color-mix(in srgb, var(--wb-accent, #2563eb) 28%, transparent);*/
+  color: color-mix(in srgb, var(--wb-accent, #2563eb) 82%, #000);
 }
 
 .wb-menu li::after {
   content: attr(data-tooltip);
   position: absolute;
-  top: -5px;
-  left: 40px;
+  top: 0;
+  left: 50px;
   margin-left: 10px;
   box-shadow:
           0 2px 4px rgba(0,0,0,0.1),
