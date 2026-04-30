@@ -1,3 +1,5 @@
+import type {CSSProperties} from "react";
+
 export type container = {
     layout: Layout
     grids:Grid[]
@@ -28,6 +30,14 @@ export type Element = {
 
 export type Component = {
     type: ComponentType
-    index: number
+    key: string
 }
 export type ComponentType = 'input'| 'date' | 'object' | 'other'
+
+
+
+export type IconProps = {
+    style?: CSSProperties
+    onClick?:()=>void
+    className?:string
+}

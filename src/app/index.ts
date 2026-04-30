@@ -1,2 +1,1 @@
-
-export type {default as WebBuilder} from './WebBuilder';
+export { default as WebBuilder } from './WebBuilder'
