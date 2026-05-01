@@ -8,8 +8,8 @@ body {
 body {
   margin: 0;
   font-family: 'Pretendard', sans-serif;
+  font-weight: 300;
   color: #0f172a;
-
   box-sizing: border-box;
 }
 
@@ -111,10 +111,21 @@ li {
 .wb-body{
   flex:1;
   width: 100%;
-  background: #f3f4f7;
+  min-height: 0;
+  background: #f5f5f5;
   display: flex;
   position: relative;
   overflow: hidden;
+}
+
+.wb-content{
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+  height: 100%;
+  box-shadow:
+    inset 0 4px 8px rgba(15, 23, 42, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.65);
 }
 .wb-menu{
   height: 100%;
@@ -123,7 +134,8 @@ li {
   background: white;
   border-right: 1px solid #dfe5eb;
   position: relative;
-  z-index: 10;
+  /* 드로어보다 위: 드로어가 메뉴를 덮지 않게 */
+  z-index: 30;
 }
 .wb-menu ul {
   display: flex;
@@ -166,8 +178,9 @@ li {
   background: #ffffff;
   padding: 10px 20px;
   white-space: nowrap;
-
   display: none;
+  color: black;
+  font-weight: bold;
 }
 
 .wb-menu li:hover::after {
@@ -199,11 +212,18 @@ li {
   border-right: 1px solid #dfe5eb;
   transform: translateX(calc(-100% - 12px));
   transition: transform 180ms ease, width 180ms ease;
-  z-index: 9;
+  /* 메뉴보다 아래(메뉴는 항상 보이게). 툴팁은 드로어 열릴 때 별도로 숨김 */
+  z-index: 20;
   display: flex;
   flex-direction: column;
   /* shadow는 오른쪽으로만(메뉴 안 덮게) */
   box-shadow: 10px 0 30px rgba(15, 23, 42, 0.14);
+}
+
+/* 드로어가 열려있을 때는 툴팁(li::after)이 드로어 위로 올라오지 않게 숨김 */
+.wb-body:has(.wb-drawer.is-open) .wb-menu li::after,
+.wb-body:has(.wb-drawer.is-open) .wb-menu li:hover::after {
+  display: none !important;
 }
 
 .wb-drawer-accent{
@@ -232,7 +252,7 @@ li {
   align-items: center;
   justify-content: space-between;
   padding: 0 12px 0 14px;
-  border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+  border-bottom: 1px solid #dfe5eb;
 }
 .wb-drawer-title{
   font-weight: 700;
@@ -252,68 +272,29 @@ li {
 .wb-drawer-content{
   min-height: 0;
   overflow: auto;
-  padding: 12px 12px 18px;
+  display: flex;
+  height: 100%;
 }
-.wb-drawer-section{
-  margin-bottom: 16px;
+.wb-drawer-menu{
+  background: #f3f4f7;
+  height: 100%;
+  border-right: 1px solid #dfe5eb;
+  padding: 6px 14px;
 }
-.wb-drawer-section-title{
-  font-size: 12px;
-  font-weight: 700;
-  color: rgba(15, 23, 42, 0.7);
-  margin: 6px 0 10px;
-}
-.wb-drawer-card{
-  border: 1px solid rgba(15, 23, 42, 0.10);
-  border-radius: 12px;
-  padding: 12px;
-  font-size: 12px;
-  color: rgba(15, 23, 42, 0.7);
-  background: rgba(15, 23, 42, 0.02);
-  margin-bottom: 10px;
-}
-.wb-drawer-grid{
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-}
-.wb-drawer-chip{
-  height: 38px;
-  border-radius: 12px;
-  border: 1px solid rgba(15, 23, 42, 0.12);
-  background: #fff;
+.wb-drawer-menu  li {
+  margin: 0.5rem 0;
+  font-size: 13px;
   cursor: pointer;
-  font-size: 12px;
-  font-weight: 600;
-  color: rgba(15, 23, 42, 0.82);
 }
-.wb-drawer-chip:hover{
-  border-color: rgba(15, 23, 42, 0.22);
-  background: rgba(15, 23, 42, 0.015);
+.wb-drawer-menu  li  span{
+  padding: 8px 16px;
+  border-radius: 50px;
+  display: inline-block;
 }
-.wb-drawer-form{
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 10px;
-}
-.wb-drawer-field{
-  display: grid;
-  grid-template-columns: 72px 1fr;
-  align-items: center;
-  gap: 10px;
-  font-size: 12px;
-  color: rgba(15, 23, 42, 0.72);
-}
-.wb-drawer-field input{
-  height: 34px;
-  border-radius: 12px;
-  border: 1px solid rgba(15, 23, 42, 0.14);
-  padding: 0 12px;
-  background: #fff;
-}
-.wb-drawer-field input:focus{
-  outline: 2px solid rgba(37, 99, 235, 0.22);
-  outline-offset: 1px;
+.wb-drawer-menu  li:hover span,
+.wb-drawer-menu  li.is-selected span {
+  background: #d6e6fe;
+  color: #0057e1;
 }
 
 .wb-logo{
