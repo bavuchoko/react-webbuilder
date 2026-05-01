@@ -101,12 +101,229 @@ li {
 }
 .wb-nav-bar{
   width: 100%;
-  height: 6rem;
+  height: 5.6rem;
 }
 .wb-nav-top, .wb-nav-bottom{
   width: 100%;
-  height: 3rem;
+  height: 2.8rem;
   border-bottom: 1px solid #dfe5eb;
+}
+
+.wb-nav-bottom{
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: #ffffff;
+}
+
+.wb-page-select {
+  height: 100%;
+  border-right: 1px solid #dfe5eb;
+  padding: 0 12px;
+  position: relative;
+  width: 220px;
+  max-width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.wb-page-select-trigger{
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) 18px auto;
+  align-items: center;
+  column-gap: 10px;
+  width: 100%;
+  height: 32px;
+  padding: 0 10px;
+  border: none;
+  background: #fff;
+  cursor: pointer;
+}
+
+.wb-page-select-trigger:disabled{
+  cursor: progress;
+}
+
+.wb-page-select-trigger:focus-visible{
+  outline: 2px solid rgba(37, 99, 235, 0.35);
+  outline-offset: 2px;
+}
+
+.wb-page-select-label{
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.wb-page-select-value{
+  justify-self: stretch;
+  width: 100%;
+  max-width: 100%;
+  font-size: 13px;
+  padding: 4px 10px;
+  min-width: 0;
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.wb-page-select-spinner-slot{
+  width: 22px;
+  height: 22px;
+  display: grid;
+  place-items: center;
+}
+
+.wb-spinner{
+  width: 18px;
+  height: 18px;
+  border-radius: 999px;
+  border: 2px solid rgba(37, 99, 235, 0.18);
+  border-top-color: rgba(37, 99, 235, 0.85);
+  opacity: 0;
+  transform: rotate(0deg);
+}
+
+.wb-spinner.is-active{
+  opacity: 1;
+  animation: wb-spin 700ms linear infinite;
+}
+
+@keyframes wb-spin{
+  to { transform: rotate(360deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wb-spinner.is-active{
+    animation: none;
+  }
+}
+
+.wb-page-select-chevron{
+  width: 10px;
+  height: 10px;
+  border-right: 2px solid rgba(15, 23, 42, 0.55);
+  border-bottom: 2px solid rgba(15, 23, 42, 0.55);
+  transform: rotate(45deg) translateY(-1px);
+  margin-left: 2px;
+}
+
+.wb-page-select-dropdown{
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 220px;
+  background: #fff;
+  border: 1px solid rgba(15, 23, 42, 0.12);
+  box-shadow:
+    0 18px 45px rgba(15, 23, 42, 0.14),
+    0 2px 10px rgba(15, 23, 42, 0.08);
+  overflow: hidden;
+  display: none;
+  z-index: 50;
+}
+
+.wb-page-select-dropdown.is-open{
+  display: block;
+}
+
+.wb-page-select-dropdown-scroll{
+  max-height: min(62vh, 520px);
+  overflow: auto;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* Legacy Edge/IE */
+}
+
+.wb-page-select-dropdown-scroll::-webkit-scrollbar{
+  width: 0;
+  height: 0;
+  display: none; /* Chromium/Safari */
+}
+
+.wb-page-select-list{
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.wb-page-select-group{
+  margin: 0;
+  padding: 0;
+}
+
+.wb-page-select-group-title{
+  padding: 10px 12px;
+  font-size: 12px;
+  font-weight: 800;
+  color: rgba(15, 23, 42, 0.62);
+  background: #f3f4f6;
+  border-top: 1px solid rgba(15, 23, 42, 0.06);
+  border-bottom: 1px solid rgba(15, 23, 42, 0.06);
+}
+
+.wb-page-select-group:first-child .wb-page-select-group-title{
+  border-top: none;
+}
+
+.wb-page-select-items{
+  list-style: none;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.wb-page-select-item{
+  width: 100%;
+  text-align: left;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  padding: 10px 10px;
+  font-size: 13px;
+  font-weight: 200;
+  color: rgba(15, 23, 42, 0.92);
+}
+
+.wb-page-select-item:hover:not(:disabled):not(.is-selected){
+  background: rgba(15, 23, 42, 0.04);
+}
+
+.wb-page-select-item.is-selected{
+  background: #116dff !important;
+  color: #ffffff;
+}
+
+.wb-page-select-item:disabled{
+  cursor: progress;
+  opacity: 0.55;
+}
+
+.wb-page-select-item.is-selected:hover:not(:disabled){
+  background: #0f5fe0 !important;
+}
+
+.wb-page-select-footer{
+  border-top: 1px solid rgba(15, 23, 42, 0.10);
+
+  background: #fff;
+}
+
+.wb-page-select-manage{
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  font-size: 13px;
+  color: #2563eb;
+  padding: 12px 0;
+  border-radius: 8px;
+  text-align: center;
+}
+.wb-page-select-manage p{
+  display: inline-block;
+  margin: 0;
+}
+.wb-page-select-manage:hover p{
+  border-bottom:1px solid #2563eb;
 }
 .wb-body{
   flex:1;
@@ -282,12 +499,15 @@ li {
   padding: 6px 14px;
 }
 .wb-drawer-menu  li {
-  margin: 0.5rem 0;
+  margin: 6px 0;
   font-size: 13px;
   cursor: pointer;
+  user-select: none;
 }
 .wb-drawer-menu  li  span{
-  padding: 8px 16px;
+  height: 30px;
+  line-height: 30px;
+  padding: 0 16px;
   border-radius: 50px;
   display: inline-block;
 }

@@ -1,7 +1,7 @@
 import Layout from '../../asstes/icons/layout.tsx'
 import Grid from '../../asstes/icons/grid.tsx'
 import Section from '../../asstes/icons/section.tsx'
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import Drawer from './Drawer.tsx'
 import LayoutDrawerContent from '../drawers/LayoutDrawerContent.tsx'
 import GridDrawerContent from '../drawers/GridDrawerContent.tsx'
@@ -11,7 +11,14 @@ export type WbMenuKey = 'layout' | 'grid' | 'section'
 
 type DrawerKey = WbMenuKey | null
 
-export default function WbMenu() {
+type WbMenuProps = {
+  /** 외부(예: 페이지 셀렉터)에서 드로어를 강제로 닫을 때 증가 */
+  closeNonce: number
+  /** 드로어가 열리려는 순간 호출(페이지 셀렉터 닫기용) */
+  onOpenIntent: () => void
+}
+
+export default function WbMenu({ closeNonce, onOpenIntent }: WbMenuProps) {
   const [activeDrawer, setActiveDrawer] = useState<DrawerKey>(null)
 
   const drawerWidth = useMemo(() => {
@@ -27,8 +34,16 @@ export default function WbMenu() {
     }
   }, [activeDrawer])
 
+  useEffect(() => {
+    setActiveDrawer(null)
+  }, [closeNonce])
+
   const toggleDrawer = (key: WbMenuKey) => {
-    setActiveDrawer((prev) => (prev === key ? null : key))
+    setActiveDrawer((prev) => {
+      const next = prev === key ? null : key
+      if (next) onOpenIntent()
+      return next
+    })
   }
 
   const drawerTitle = useMemo(() => {
@@ -41,7 +56,7 @@ export default function WbMenu() {
   const accentColorFor = (key: WbMenuKey) => {
     if (key === 'layout') return '#2563eb' // blue
     if (key === 'grid') return '#7c3aed' // violet
-    if (key === 'section') return '#fc9d3c' // orange
+    if (key === 'section') return '#00a87e' // orange
     return 'transparent'
   }
 

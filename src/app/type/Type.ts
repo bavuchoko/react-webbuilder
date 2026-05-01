@@ -1,38 +1,22 @@
 import type {CSSProperties} from "react";
+import type {
+  Axis,
+  Component,
+  ComponentType,
+  Element,
+  Grid,
+  PageLayoutContainer,
+  PageLayoutType,
+  Section,
+} from '../types/PageLayout.ts'
 
-export type container = {
-    layout: Layout
-    grids:Grid[]
-}
-type Layout = 'normal' | 'narrow' | '2way' | '3way' | 'crown'
+/** @deprecated Prefer `PageLayoutContainer` from `src/app/types/PageLayout.ts` */
+export type container = PageLayoutContainer
 
-export type Grid = {
-    id:number
-    sections: Section[]
-    axis: Axis
-}
+/** @deprecated Prefer `PageLayoutType` from `src/app/types/PageLayout.ts` */
+export type Layout = PageLayoutType
 
-export  type Axis = {
-    x: AxisType
-    y: AxisType
-}
-
-type AxisType = 'auto' | 'scroll' | 'hidden'
-
-export type Section = {
-    elements:Element[]
-}
-
-export type Element = {
-    isFullWidth : boolean
-    component: Component
-}
-
-export type Component = {
-    type: ComponentType
-    key: string
-}
-export type ComponentType = 'input'| 'date' | 'object' | 'other'
+export type { Axis, Component, ComponentType, Element, Grid, Section }
 
 
 
@@ -41,3 +25,4 @@ export type IconProps = {
     onClick?:()=>void
     className?:string
 }
+
